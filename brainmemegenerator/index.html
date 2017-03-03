@@ -1,0 +1,43 @@
+<html>
+	<head>
+		<style>
+			.text { width: 200px; height: 140px; text-align: center; vertical-align: middle; display: table-cell; } 
+			* { margin: 0; padding: 0; border-collapse: collapse; }
+			img.big { width: 200px; height: 140px; }
+			img.small { width: 60px; height: 44px; }
+			#reference { float: right; }
+		</style>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script>
+			function addPanel() {
+				var tr = $('<tr></tr>');
+				tr.append($('<td></td>').append($('<span></span>').addClass('text').attr('contenteditable', 'true').attr('spellcheck', 'false')));
+				tr.append($('<td></td>').append($('<img>').attr('src', '').addClass('big')));
+				var select = $('<select></select>').change(function() {
+					$(this).parent().parent().find('img').attr('src', 'assets/' + $(this).val());
+				});
+				for (var i = 1; i <= 21; i++) {
+					select.append($('<option>' + i + '</option>').attr('value', i + '.jpg'));
+				}
+				tr.append($('<td></td>').append(select));
+				tr.append($('<td></td>').append($('<input>').attr('type', 'text').attr('placeholder', 'font css').change(function() {
+					$(this).parent().parent().find('span').attr('style', $(this).val());
+				})));
+				select.change();
+				$('table').append(tr);
+			}
+			$(() => {
+				$('#add').click(addPanel);
+				for (var i = 1; i <= 21; i++) {
+					$('#reference').append($('<img>').addClass('small').attr('src', 'assets/' + i + '.jpg')).append('<span>' + i + '</span>');
+				}
+			});
+		</script>
+	</head>
+	<body>
+		<table></table>
+		<input type="button" id="add" value="--> PRESS THIS BUTTON TO ADD MEME PANEL <--">
+		<div id="reference">Reference: </div>
+		NOTE: I do not own any of the images used placed in assets/ folder. All rights belong to image authors.
+	</body>
+</html>
